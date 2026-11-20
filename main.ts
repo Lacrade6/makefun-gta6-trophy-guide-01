@@ -1,44 +1,41 @@
-// Vice City Trophy Guide — hand-in entrypoint (Node 22, standard library only).
-//
-// Copies app/ and screenshots/ from beside this file into the output directory
-// (/output in the grader, or $MAKEFUN_OUTPUT_DIR locally) and writes
-// dossier.json with the vendored make.fun library — byte for byte what the
-// scorer writes from the same files. Run it with:
-//   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
-//
-// The caps below are the scorer's own (kit reference/gate.json): at most 4
-// screenshots, each at most 256 KiB; app/ at most 993 entries and 48 MiB;
-// the dossier text at most 160 KiB. Only text_max_bytes shapes the bytes;
-// the others refuse an entry the scorer would refuse.
-
+// Vice City Trophy Guide — hand-in program for make.fun gta6-trophy-guide-01.
+// Copies app/ and screenshots/ into the output directory, then builds the
+// dossier with the kit's own library so the grader sees exactly the same
+// bytes it would build itself. Node 22, standard library only.
 import { cpSync, existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-frontend.ts';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
-const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-const CAPS = {
+function countFiles(dir) {
+  let n = 0;
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    n += entry.isDirectory() ? countFiles(join(dir, entry.name)) : 1;
+  }
+  return n;
+}
+
+mkdirSync(outDir, { recursive: true });
+
+for (const part of ['app', 'screenshots']) {
+  const src = join(here, part);
+  if (!existsSync(src)) {
+    console.error('missing ' + part + '/ — nothing to hand in');
+    process.exit(1);
+  }
+  cpSync(src, join(outDir, part), { recursive: true });
+  console.log(part + '/: ' + countFiles(src) + ' files copied');
+}
+
+const dossier = buildDossier(outDir, {
   text_max_bytes: 163840,
   screenshots: { max: 4, max_bytes: 262144 },
   app_max_files: 993,
   app_max_bytes: 50331648,
-};
-
-function copyDir(name: string): void {
-  const src = join(here, name);
-  const dst = join(out, name);
-  if (!existsSync(src)) throw new Error(`missing ${name}/ beside main.ts — nothing to hand in`);
-  cpSync(src, dst, { recursive: true });
-  const entries = readdirSync(dst, { recursive: true });
-  console.error(`copied ${name}/: ${entries.length} entries`);
-}
-
-mkdirSync(out, { recursive: true });
-copyDir('app');
-copyDir('screenshots');
-
-const dossier = buildDossier(out, CAPS);
-writeFileSync(join(out, 'dossier.json'), dossier);
-console.error(`wrote dossier.json: ${dossier.length} bytes`);
+});
+writeFileSync(join(outDir, 'dossier.json'), dossier);
+console.log('dossier.json written (' + dossier.length + ' bytes)');
+console.log('Vice City Trophy Guide handed in to ' + outDir);

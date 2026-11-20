@@ -1,1 +1,58 @@
-{"note":"Hours are rough estimates from the PowerPyx guide (story 60–80h, 100% completion ~100h, side content ~10h). They are estimates, not promises — your mileage will vary.","stages":[{"hours":70,"id":"story","summary":"Play all five chapters. Keep cheats off for the whole run and make a manual save at the start of every chapter — there is no mission replay. Do the side quests as they appear: Andy (Chapter 3), Kenton (Chapter 1), Billy (Chapter 2), Randy (Chapter 3), Tyrone (Chapter 3) and Bret (Chapter 2).","title":"Stage 1 — The Story (Chapters 1–5)","trophies":[2,3,4,5,6,7,8,9,10,11,12,13,22,23,24,26,27,29],"warnings":[{"text":"Before you leave Chapter 1: do the balcony meditation at Jason's house (Positive Mental Attitude). It is the only missable trophy in the game.","trophy":28},{"text":"The final meditation needs BOTH Jason and Lucia at the same spot — only possible after Coffee Break (Chapter 2) unlocks switching.","trophy":28}]},{"hours":100,"id":"completion","summary":"After the credits, open Touchpad, Progress, Stats, 100% Completion Checklist. The bar sits around 60% after the story. Work it top to bottom: 200 of 277 vehicles, 100 of 255 animals, 50 of 66 weapons, 70 of 80 challenges, 300 stunts, 15 of 18 meditations, plus every optional mission, robbery, underwater discovery, shooting range and drone race. Nothing on the checklist is missable.","title":"Stage 2 — 100% Completion","trophies":[14,15,17,18,30,31,32,35,40,42,43],"warnings":[{"text":"You need 15 of 18 meditations for 100% — but all 18 for Positive Mental Attitude. Finish the meditation set before the checklist.","trophy":28},{"text":"Bank vaults: 5 for Maximum Withdrawal, all 8 for 100%. Do the full set now.","trophy":40}]},{"hours":10,"id":"cleanup","summary":"Mop up the miscellaneous trophies: the eight Strangers & Freaks strands, the activity trophies, the money trophies and the secret interactions. Check the PowerPyx trophy page for the latest confirmed methods on the two trophies whose methods were unconfirmed at launch.","title":"Stage 3 — Clean-up & Secret Trophies","trophies":[16,19,20,21,25,28,33,34,36,37,38,39,41,44,45,46,47,48,49,50,51,52,53,54,55],"warnings":[{"text":"Bad Luck, I Guess and The Truth Is Out There had no confirmed method at launch — check the source link on the trophy before you hunt for them.","trophy":49},{"text":"Two trophies are confirmed by their official descriptions: In The Beginning… is a cocktail with a view on Ocean Beach; Ten Pin is a melee drive-by from a motorcycle.","trophy":44}]}],"totalHours":180}
+{
+  "totalHours": 180,
+  "note": "Hours are rough estimates from the PowerPyx guide (story 60–80h, 100% completion ~100h, side content ~10h). They are estimates, not promises — your mileage will vary.",
+  "stages": [
+    {
+      "id": "story",
+      "title": "Stage 1 — The Story (Chapters 1–5)",
+      "hours": 70,
+      "summary": "Play all five chapters. Keep cheats off for the whole run and make a manual save at the start of every chapter — there is no mission replay. Do the side quests as they appear: Andy (Chapter 3), Kenton (Chapter 1), Billy (Chapter 2), Randy (Chapter 3), Tyrone (Chapter 3) and Bret (Chapter 2).",
+      "trophies": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 22, 23, 24, 26, 27, 29],
+      "warnings": [
+        {
+          "trophy": 28,
+          "text": "Before you leave Chapter 1: do the balcony meditation at Jason's house (Positive Mental Attitude). It is the only missable trophy in the game."
+        },
+        {
+          "trophy": 28,
+          "text": "The final meditation needs BOTH Jason and Lucia at the same spot — only possible after Coffee Break (Chapter 2) unlocks switching."
+        }
+      ]
+    }
+    ,
+    {
+      "id": "completion",
+      "title": "Stage 2 — 100% Completion",
+      "hours": 100,
+      "summary": "After the credits, open Touchpad, Progress, Stats, 100% Completion Checklist. The bar sits around 60% after the story. Work it top to bottom: 200 of 277 vehicles, 100 of 255 animals, 50 of 66 weapons, 70 of 80 challenges, 300 stunts, 15 of 18 meditations, plus every optional mission, robbery, underwater discovery, shooting range and drone race. Nothing on the checklist is missable.",
+      "trophies": [14, 15, 17, 18, 30, 31, 32, 35, 40, 42, 43],
+      "warnings": [
+        {
+          "trophy": 28,
+          "text": "You need 15 of 18 meditations for 100% — but all 18 for Positive Mental Attitude. Finish the meditation set before the checklist."
+        },
+        {
+          "trophy": 40,
+          "text": "Bank vaults: 5 for Maximum Withdrawal, all 8 for 100%. Do the full set now."
+        }
+      ]
+    },
+    {
+      "id": "cleanup",
+      "title": "Stage 3 — Clean-up & Secret Trophies",
+      "hours": 10,
+      "summary": "Mop up the miscellaneous trophies: the eight Strangers & Freaks strands, the activity trophies, the money trophies and the secret interactions. Check the PowerPyx trophy page for the latest confirmed methods on the two trophies whose methods were unconfirmed at launch.",
+      "trophies": [16, 19, 20, 21, 25, 28, 33, 34, 36, 37, 38, 39, 41, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55],
+      "warnings": [
+        {
+          "trophy": 49,
+          "text": "Bad Luck, I Guess and The Truth Is Out There had no confirmed method at launch — check the source link on the trophy before you hunt for them."
+        },
+        {
+          "trophy": 44,
+          "text": "Two trophies are confirmed by their official descriptions: In The Beginning… is a cocktail with a view on Ocean Beach; Ten Pin is a melee drive-by from a motorcycle."
+        }
+      ]
+    }
+  ]
+}

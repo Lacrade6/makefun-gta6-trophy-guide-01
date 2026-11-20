@@ -1,111 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vice City Trophy Guide — Leonida Platinum Tracker</title>
-<meta name="description" content="All 55 GTA VI trophies with cited guides, a platinum roadmap and an offline progress tracker.">
+<meta name="description" content="Offline guide and tracker for all 55 PlayStation 5 trophies of Grand Theft Auto VI: cited guides, a three-stage platinum roadmap, missable warnings and a spoiler-safe checklist.">
 <link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <header class="hero">
-  <div class="hero-inner">
-    <p class="eyebrow">Grand Theft Auto VI · PlayStation 5 · 55 trophies</p>
-    <h1>Vice City Trophy Guide</h1>
-    <p class="sub">Every trophy, a guide with a cited source, a platinum roadmap — and a tracker that remembers your progress offline.</p>
-    <nav class="tabs" aria-label="Views">
-      <a href="#/" id="tab-checklist" class="tab">Checklist</a>
-      <a href="#/roadmap" id="tab-roadmap" class="tab">Roadmap</a>
-      <a href="#/dashboard" id="tab-dashboard" class="tab">Dashboard</a>
-    </nav>
-  </div>
+  <p class="eyebrow">Grand Theft Auto VI · PlayStation 5 · 55 trophies</p>
+  <h1>Vice City Trophy Guide</h1>
+  <p class="sub">The Leonida Platinum Tracker — every trophy with a cited guide, a three-stage roadmap, and progress that stays on your device.</p>
+  <nav class="tabs" aria-label="Views">
+    <a class="tab" href="#/" data-route="checklist">Checklist</a>
+    <a class="tab" href="#/roadmap" data-route="roadmap">Roadmap</a>
+    <a class="tab" href="#/dashboard" data-route="dashboard">Dashboard</a>
+  </nav>
 </header>
-
 <main>
-  <section class="dash" id="dash" aria-label="Progress dashboard">
-    <div class="dash-main">
-      <div class="ring" id="ring" aria-label="Overall progress">0%</div>
-      <div class="dash-text">
-        <p class="big" id="progress-line">0 of 55 earned</p>
-        <p class="muted" id="grade-line">Platinum 0/1 · Gold 0/2 · Silver 0/6 · Bronze 0/46</p>
-        <p class="muted" id="time-line">About 180 hours to the platinum (rough estimate).</p>
-      </div>
+  <section class="strip" aria-label="Progress summary">
+    <div class="ring-wrap">
+      <div class="ring" id="ring"><span id="ring-pct">0%</span></div>
+      <p class="ring-label" id="ring-label">0 of 55 earned</p>
     </div>
-    <div class="dash-side">
-      <p class="label">Easiest next trophy</p>
-      <p class="next" id="next-trophy">—</p>
-      <div class="dash-actions">
-        <button id="export" type="button">Export progress</button>
-        <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-        <button id="demo" type="button" title="Load a sample of earned trophies to try the tracker">Load demo progress</button>
-        <button id="reset" type="button" class="quiet">Reset</button>
-      </div>
+    <div class="strip-stats">
+      <p id="grade-counts">Platinum 0/1 · Gold 0/2 · Silver 0/6 · Bronze 0/46</p>
+      <p id="hours-left">Roughly 180 hours to the platinum.</p>
+      <p>Easiest next trophy: <a id="easiest-next" href="#/">—</a></p>
+    </div>
+    <div class="strip-actions">
+      <button type="button" id="export-btn">Export progress</button>
+      <label class="file-btn">Import progress
+        <input type="file" id="import-file" accept="application/json,.json" hidden>
+      </label>
+      <button type="button" id="demo-btn">Load demo progress</button>
+      <button type="button" id="reset-btn" class="danger">Reset</button>
     </div>
   </section>
-
   <section class="controls" aria-label="Filters">
-    <input id="search" type="search" placeholder="Search trophies, guides, chapters…" aria-label="Search trophies">
-    <label>Grade
-      <select id="grade">
-        <option value="all">All grades</option>
-        <option value="platinum">Platinum</option>
-        <option value="gold">Gold</option>
-        <option value="silver">Silver</option>
-        <option value="bronze">Bronze</option>
-      </select>
-    </label>
-    <label>Type
-      <select id="kind">
-        <option value="all">All types</option>
-        <option value="story">Story</option>
-        <option value="activity">Activity</option>
-        <option value="collectible">Collectible</option>
-        <option value="secret">Secret</option>
-        <option value="completion">100% completion</option>
-        <option value="platinum">Platinum</option>
-      </select>
-    </label>
-    <label>Chapter
-      <select id="chapter">
-        <option value="all">All chapters</option>
-        <option value="1">Chapter 1</option>
-        <option value="2">Chapter 2</option>
-        <option value="3">Chapter 3</option>
-        <option value="4">Chapter 4</option>
-        <option value="5">Chapter 5</option>
-        <option value="post">After the story</option>
-      </select>
-    </label>
-    <label class="check"><input id="missable" type="checkbox"> Missable only</label>
-    <label class="check"><input id="hide-earned" type="checkbox"> Hide earned</label>
-    <label class="check"><input id="spoiler" type="checkbox"> Spoiler-safe (hide story trophies)</label>
+    <input type="search" id="search" placeholder="Search trophies, guides, chapters…" aria-label="Search">
+    <select id="grade-filter" aria-label="Grade">
+      <option value="all">All grades</option>
+      <option value="platinum">Platinum</option>
+      <option value="gold">Gold</option>
+      <option value="silver">Silver</option>
+      <option value="bronze">Bronze</option>
+    </select>
+    <select id="type-filter" aria-label="Type">
+      <option value="all">All types</option>
+      <option value="story">Story</option>
+      <option value="activity">Activity</option>
+      <option value="collectible">Collectible</option>
+      <option value="secret">Secret</option>
+      <option value="completion">100% completion</option>
+      <option value="platinum">Platinum</option>
+    </select>
+    <select id="chapter-filter" aria-label="Chapter">
+      <option value="all">All chapters</option>
+      <option value="1">Chapter 1</option>
+      <option value="2">Chapter 2</option>
+      <option value="3">Chapter 3</option>
+      <option value="4">Chapter 4</option>
+      <option value="5">Chapter 5</option>
+      <option value="after">After the story</option>
+    </select>
+    <label class="check"><input type="checkbox" id="missable-only"> Missable only</label>
+    <label class="check"><input type="checkbox" id="hide-earned"> Hide earned</label>
+    <label class="check"><input type="checkbox" id="spoiler-safe"> Spoiler-safe (hide story trophies)</label>
   </section>
-
-  <p class="count" id="count"></p>
-
-  <section id="view-checklist" class="view">
-    <div id="cards" class="cards"></div>
-  </section>
-
-  <section id="view-roadmap" class="view" hidden>
-    <div id="roadmap"></div>
-  </section>
-
-  <section id="view-dashboard" class="view" hidden>
-    <div id="dashboard"></div>
-  </section>
-
-  <section id="view-trophy" class="view" hidden>
-    <div id="trophy-detail"></div>
-  </section>
+  <p class="count-line" id="count-line">Loading trophies…</p>
+  <section id="view-checklist" class="view"><div class="grid" id="grid"></div></section>
+  <section id="view-roadmap" class="view" hidden></section>
+  <section id="view-dashboard" class="view" hidden></section>
+  <section id="view-trophy" class="view" hidden></section>
 </main>
-
 <footer>
-  <p><strong>Sources.</strong> Trophy names, descriptions and grades are the official PlayStation list (as published by Exophase and PSNProfiles, 18 Nov 2026). Guides are written in our own words from the PowerPyx GTA 6 Trophy Guide &amp; Roadmap and the GTA Zone trophy list — every trophy cites its sources beside it. Two trophies (Bad Luck, I Guess and The Truth Is Out There) had no confirmed method at launch; the guide says so honestly and points to the source page for updates. Two more (In The Beginning… and Ten Pin) are confirmed by their own official descriptions.</p>
-  <p><strong>Missable warning.</strong> Positive Mental Attitude is the only missable trophy: do the balcony meditation in Chapter 1 before you leave it. See the roadmap for the full warning.</p>
-  <p class="muted">Unofficial fan-made guide. GTA VI, Vice City and Leonida are properties of their owners; no Rockstar Games logo, artwork or fonts are used here. Progress is stored only in your browser (localStorage) — nothing leaves your device. <a href="?demo=1">Try the tracker with demo progress</a>.</p>
+  <p><strong>Sources.</strong> Official trophy names, descriptions and grades as published by PlayStation (via Exophase and PSNProfiles, 18 Nov 2026). Guides are written in our own words from PowerPyx and GTA Zone, and every trophy cites its source. Two trophies — Bad Luck, I Guess and The Truth Is Out There — had no confirmed unlock method at launch, and their guides say so honestly instead of inventing one. Two more — In The Beginning… and Ten Pin — are confirmed by their official descriptions.</p>
+  <p><strong>Missable warning.</strong> Positive Mental Attitude is the only missable trophy in the game: do the balcony meditation at Jason's house in Chapter 1, after the mission Down to Earth, before you leave the chapter. Everything else stays available after the story.</p>
+  <p class="muted">Unofficial fan-made guide. Not affiliated with Rockstar Games or PlayStation. Your progress is stored only in this browser (localStorage) — export it to keep a copy. <a href="?demo=1">Open the demo</a> to see the tracker with sample progress.</p>
 </footer>
-
 <script type="module" src="app.js"></script>
 </body>
 </html>

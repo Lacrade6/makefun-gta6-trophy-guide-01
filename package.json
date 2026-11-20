@@ -1,1 +1,11 @@
-{"description":"Vice City Trophy Guide — Leonida Platinum Tracker (make.fun gta6-trophy-guide-01 entry)","license":"MIT","name":"makefun-gta6-trophy-guide-01","private":true,"scripts":{"build":"node main.ts","serve":"node serve.ts"},"type":"module"}
+{
+  "name": "makefun-gta6-trophy-guide-01",
+  "private": true,
+  "description": "Vice City Trophy Guide — Leonida Platinum Tracker (make.fun gta6-trophy-guide-01 entry)",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node main.ts",
+    "serve": "node serve.ts"
+  }
+}

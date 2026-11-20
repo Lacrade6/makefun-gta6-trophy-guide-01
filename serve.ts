@@ -1,47 +1,47 @@
-// Local dev server for the guide: serves app/ at http://localhost:8080.
-// Usage: node serve.ts [port]   (default 8080)
-// Static files only — no build step, no network fetches, exactly what main.ts hands in.
-
+// Vice City Trophy Guide — local static server for the offline app.
+// Serves app/ at http://localhost:8080 (port as an optional argument).
+// Node 22, standard library only. No network access needed by the app itself.
 import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
-import { extname, join, normalize, sep } from 'node:path';
+import { readFileSync, existsSync, statSync } from 'node:fs';
+import { extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const here = fileURLToPath(new URL('.', import.meta.url));
-const root = join(here, 'app');
-const port = Number(process.argv[2] ?? 8080);
+const appRoot = resolve(fileURLToPath(new URL('.', import.meta.url)), 'app');
+const port = Number(process.argv[2]) || 8080;
 
-const TYPES: Record<string, string> = {
+const TYPES = {
   '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
   '.mjs': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
   '.png': 'image/png',
   '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon',
+  '.txt': 'text/plain; charset=utf-8',
 };
 
-const server = createServer(async (req, res) => {
-  try {
-    const url = new URL(req.url ?? '/', 'http://localhost');
-    let path = url.pathname === '/' ? '/index.html' : url.pathname;
-    const file = normalize(join(root, path));
-    if (!file.startsWith(root + sep) && file !== root) {
-      res.writeHead(403, { 'content-type': 'text/plain' });
-      res.end('forbidden');
-      return;
-    }
-    const body = await readFile(file);
-    res.writeHead(200, { 'content-type': TYPES[extname(file)] ?? 'application/octet-stream' });
-    res.end(body);
-  } catch {
-    res.writeHead(404, { 'content-type': 'text/plain' });
-    res.end('not found');
+const server = createServer((req, res) => {
+  const urlPath = decodeURIComponent((req.url || '/').split('?')[0]);
+  const rel = urlPath === '/' ? 'index.html' : urlPath.replace(/^\/+/, '');
+  const filePath = resolve(join(appRoot, normalize(rel)));
+  if (!filePath.startsWith(appRoot)) {
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.end('Forbidden');
+    return;
   }
+  if (!existsSync(filePath) || !statSync(filePath).isFile()) {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not found: ' + urlPath);
+    return;
+  }
+  const type = TYPES[extname(filePath).toLowerCase()] || 'application/octet-stream';
+  res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-store' });
+  res.end(readFileSync(filePath));
 });
 
 server.listen(port, () => {
-  console.error(`Vice City Trophy Guide at http://localhost:${port}/`);
+  console.log('Vice City Trophy Guide at http://localhost:' + port);
 });
